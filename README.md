@@ -4,8 +4,11 @@ To run in UCB, all you need to do is get the API key and pass it to the upload s
 Keep reading to find out how.
 
 TODO:
-* Document environment variables (the ones UCB gives automatically)
 * allow env to be overridden by command line args
+* Auto increase build number
+* figure out how python modules/packages/paths work\
+(currently using `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))` in a few places)
+* Delete old key file. maybe even add a warning if it already exists?
 
 # Quick Start 
 Simply call
@@ -22,20 +25,20 @@ See [example.env](example.env) (TODO update this)
 The following variables all relate to your App Store Connect API Key.\
 [See the following section on creating it](#creating-your-api-key)
 
-* `APP_STORE_CONNECT_API_KEY_ISSUER_ID`\
-Look for "*Issuer ID*" on [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
+| Variable | Type | Required | Default | Description |
+|-|-|-|-|-|
+| `APP_STORE_CONNECT_API_KEY_ISSUER_ID` | `string` | Yes | - | Identifies the issuer who created the authentication token.<br>Look for "*Issuer ID*" on [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
+| `APP_STORE_CONNECT_API_KEY_KEY_ID` | `string` | Yes | - | Look for "*Key ID*" on your key in [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
+| `APP_STORE_CONNECT_API_KEY_ALL_CONTENT` | `string` | Yes | - | The raw text contents of your API key.<br>Downloaded from [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
 
-* `APP_STORE_CONNECT_API_KEY_KEY_ID`\
-Look for "*Key ID*" on your key in [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
+## Other 
 
-* `APP_STORE_CONNECT_API_KEY_ALL_CONTENT`\
-The raw text contents of your API key. Downloaded from [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).\
-Just open the p8 file in any old text editor to get it.
-
-## Other
-The following environment variables are set automatically by Unity Cloud Build.
-
-TODO: fill with info env_accessor.py
+| Variable | Type | Required | Default | Description |
+|-|-|-|-|-|
+| `OUTPUT_DIRECTORY`| `path`/`string` | Yes | - | The folder containing the output file.<br>(Unity Cloud Build automatically sets this)
+| `GROUPS` | `string` | No | - | Who the build is sent to. Even when empty, it is still available to internal testers.<br>See Fastlane `groups` parameter: https://docs.fastlane.tools/actions/upload_to_testflight/#parameters
+| `MAX_UPLOAD_ATTEMPTS` | `int` | No | 10 | Maximum times to retry the upload.<br>(Occasionally fastlane fails for no reason. The only way around is to retry. If you're curious check this out: https://github.com/fastlane/fastlane/issues/21535)
+| `TIMEOUT_PER_ATTEMPT` | `float` | No | 300 | Max time each individual upload attempt can run for **in seconds** (so default is 5 minutes).
 
 # Creating Your API Key 
 This is how the upload script is able authenticate with App Store Connect.

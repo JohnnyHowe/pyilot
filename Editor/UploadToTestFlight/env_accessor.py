@@ -17,7 +17,7 @@ APP_STORE_CONNECT_API_KEY_ISSUER_ID: str
 APP_STORE_CONNECT_API_KEY_KEY_ID: str
 APP_STORE_CONNECT_API_KEY_CONTENT: str
 OUTPUT_DIRECTORY: Path
-TEST_GROUPS: Optional[str]
+GROUPS: Optional[str]
 MAX_UPLOAD_ATTEMPTS: int
 TIMEOUT_PER_ATTEMPT: int
 
@@ -28,7 +28,7 @@ _ALL_VARIABLES = {
     "APP_STORE_CONNECT_API_KEY_ISSUER_ID": {},
     "APP_STORE_CONNECT_API_KEY_KEY_ID": {},
     "APP_STORE_CONNECT_API_KEY_CONTENT": {},
-    "TEST_GROUPS": {"required": False, "sensitive": False, "default": None},
+    "GROUPS": {"required": False, "sensitive": False, "default": None},
     "OUTPUT_DIRECTORY": {"type": Path, "sensitive": False},
     "MAX_UPLOAD_ATTEMPTS": {"type": int, "required": False, "sensitive": False, "default": 10},
     "TIMEOUT_PER_ATTEMPT": {"type": int, "required": False, "sensitive": False, "default": 60 * 5},

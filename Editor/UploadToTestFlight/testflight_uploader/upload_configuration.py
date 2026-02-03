@@ -16,7 +16,7 @@ from env_accessor import *
 
 class UploadConfiguration:
     # from env
-    test_groups: Optional[str]
+    GROUPS: Optional[str]
     max_upload_attempts: int
     timeout_per_attempt_seconds: int
     # derived
@@ -39,7 +39,7 @@ class UploadConfiguration:
         pretty_print(f"{self._print_header} Created upload configuration\n{self}", color=SUCCESS)
 
     def _populate(self):
-        self.test_groups = TEST_GROUPS
+        self.GROUPS = GROUPS
         self.max_upload_attempts = MAX_UPLOAD_ATTEMPTS
         self.timeout_per_attempt_seconds = TIMEOUT_PER_ATTEMPT
 
@@ -93,7 +93,7 @@ class UploadConfiguration:
 
         result = "{\n"
 
-        for item in ["ipa_path", "changelog_path", "app_store_key_path", "max_upload_attempts", "timeout_per_attempt_seconds", "test_groups"]:
+        for item in ["ipa_path", "changelog_path", "app_store_key_path", "max_upload_attempts", "timeout_per_attempt_seconds", "GROUPS"]:
             if item == "":
                 result += "\n"
                 continue
