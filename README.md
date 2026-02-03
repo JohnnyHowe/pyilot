@@ -1,37 +1,61 @@
-This is designed for Unity Cloud Build but can be run locally too. Hell, without a lot of work it could be used for non Unity projects.
+# Overview
+Tool to upload ipa files to TestFlight.\
+(It's mostly just a wrapper for `fastline pilot upload` but with some nice helper thingies)
 
-To run in UCB, all you need to do is get the API key and pass it to the upload script.\
-Keep reading to find out how.
+This was/is built with Unity Cloud Build in mind so it works smoothly with that.\
+Of course it is simple to run locally or in some other build system.
+
+Please ignore all the TODOS. I will get there soon I promise xo
 
 TODO:
 * allow env to be overridden by command line args
 * Auto increase build number
 * figure out how python modules/packages/paths work\
 (currently using `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))` in a few places)
-* Delete old key file. maybe even add a warning if it already exists?
+* Try authenticate without key file
+* if above doesn't work: delete old key file. maybe even add a warning if it already exists?
 
-# Quick Start 
+# Quick Start
+1. Create API key ([See: Creating Your API Key](#creating-your-api-key))
+2. Set parameters/environment variables (See: [passing variables](#passing-variables) and [variables docs](#variables))
+3. Run `bash upload_to_testflight.sh` ([See: Running](#running))
+
+# Running
 Simply call
 ```
 $ bash upload_to_testflight.sh
 ```
-# Required Environment Variables
-Put these all in a .env file in your project root but DON'T COMMIT IT to version control. It's going to contain sensitive information.\
-See [example.env](example.env) (TODO update this)
+# Passing Variables
+The uploader needs some information to run.\
+It checks the following environment variables.
 
-(For Unity Cloud Build, go to your configuration > Advanced Settings and scroll down)
+## Locally (.env file)
+Put your variables in a .env file in your project root.\
+(But DON'T COMMIT IT to version control. It's going to contain sensitive information.)
 
-## API Key
+See [example.env](example.env)
+
+## Unity Cloud Build (Environment Variables)
+Go to your configuration > Advanced Settings and scroll down until you see the "Environment variables" section.
+
+Important: Some of the required variables are automatically set by UCB.
+
+## Command Line Arguments (TODO)
+Alternatively, everything can be passed as arguements to the run script.
+
+TODO: Implement this. No functionality for it exists yet.
+
+# Variables
 The following variables all relate to your App Store Connect API Key.\
 [See the following section on creating it](#creating-your-api-key)
 
 | Variable | Type | Required | Default | Description |
 |-|-|-|-|-|
 | `APP_STORE_CONNECT_API_KEY_ISSUER_ID` | `string` | Yes | - | Identifies the issuer who created the authentication token.<br>Look for "*Issuer ID*" on [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
-| `APP_STORE_CONNECT_API_KEY_KEY_ID` | `string` | Yes | - | Look for "*Key ID*" on your key in [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
+| `APP_STORE_CONNECT_API_KEY_ID` | `string` | Yes | - | Look for "*Key ID*" on your key in [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
 | `APP_STORE_CONNECT_API_KEY_ALL_CONTENT` | `string` | Yes | - | The raw text contents of your API key.<br>Downloaded from [the page you made the API key on](https://appstoreconnect.apple.com/access/integrations/api).
 
-## Other 
+Other
 
 | Variable | Type | Required | Default | Description |
 |-|-|-|-|-|
