@@ -15,6 +15,8 @@ TODO:
 (currently using `sys.path.insert(0, str(Path(__file__).resolve().parents[1]))` in a few places)
 * Try authenticate without key file
 * if above doesn't work: delete old key file. maybe even add a warning if it already exists?
+* add some way to specify what version of this tool to use
+* UPM?
 
 # Quick Start
 1. Create API key ([See: Creating Your API Key](#creating-your-api-key))
