@@ -11,8 +11,6 @@ from pretty_print import *
 
 
 def main():
-    print("TODO: REMOVE CWD SET - DONE FOR TESTING")
-    os.chdir(r"/Users/jon/Documents/Projects/drifto")
     api_key_path = create_api_key_file()
 
     # Run the uploader safely
