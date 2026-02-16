@@ -1,6 +1,9 @@
-[submodule "Editor/python_command_line_helpers"]
-	path = Editor/python_command_line_helpers
+[submodule "src/python_command_line_helpers"]
+	path = src/python_command_line_helpers
 	url = https://github.com/JohnnyHowe/python-command-line-helpers
-[submodule "Editor/python_command_runner"]
-	path = Editor/python_command_runner
+[submodule "src/python_command_runner"]
+	path = src/python_command_runner
 	url = https://github.com/JohnnyHowe/python-command-runner
+[submodule "src/python_pretty_print"]
+	path = src/python_pretty_print
+	url = https://github.com/JohnnyHowe/python-pretty-print
