@@ -13,7 +13,8 @@ from enum import Enum
 import os
 from pathlib import Path
 from typing import get_type_hints
-from python_command_line_helpers import arg_casting
+from python_command_line_helpers.arg_casting import cast_cli_arg
+from python_command_line_helpers import input_cleaning
 from python_pretty_print import pretty_print
 
 
@@ -30,6 +31,7 @@ class UploadParameters:
     api_key_content: str
     output_directory: Path
     groups: list[str] = []
+    changelog: str
     max_upload_attempts: int = 10
     attempt_timeout: int = 600  # seconds
 
@@ -40,10 +42,14 @@ class UploadParameters:
         "api_key_id",
         "api_key_content",
         "output_directory",
+        "changelog",
         "groups",
         "max_upload_attempts",
         "attempt_timeout",
     )
+
+    def get_values(self) -> list:
+        return [getattr(self, name) for name in self._parameter_names]
 
     def __init__(self) -> None:
         self.meta_data = {}
@@ -80,7 +86,7 @@ class UploadParameters:
         for parameter_name in self._parameter_names:
             env_name = parameter_name.upper()
             if env_name in os.environ:
-                self._try_set_parameter(parameter_name, os.environ[env_name], ParameterSource.ENV)
+                self._try_set_parameter(parameter_name, input_cleaning.unescape(os.environ[env_name]), ParameterSource.ENV)
 
     def _load_parameters_from_cli(self) -> None:
         parser = argparse.ArgumentParser()
@@ -90,7 +96,7 @@ class UploadParameters:
 
         pretty_print(f"<warning>Got unknown command line args: {', '.join(unknown)}</warning>")
 
-        arg_casting.replace_hypens_with_underscore(known)
+        input_cleaning.replace_hypens_with_underscore(known)
         for parameter_name in self._parameter_names:
             if parameter_name in known:
                 self._try_set_parameter(parameter_name, getattr(known, parameter_name), ParameterSource.CLI)
@@ -99,7 +105,7 @@ class UploadParameters:
         if value == None: return False
 
         try:
-            value = arg_casting.cast(value, self.meta_data[name]["type"])
+            value = cast_cli_arg(value, self.meta_data[name]["type"])
         except:
             return False
 

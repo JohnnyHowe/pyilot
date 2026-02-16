@@ -18,6 +18,7 @@ SECURE_DELETE_COMMANDS_BY_PLATFORM = {
 def overwrite_then_delete(path: Path) -> None:
     """Overwrite a file with random bytes before deleting it."""
     fill_with_junk(path)
+    delete(path)
 
 
 def fill_with_junk(path: Path) -> None:
