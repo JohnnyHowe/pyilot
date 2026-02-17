@@ -4,6 +4,13 @@ Tool to upload `.ipa` files to TestFlight.\
 
 This package is built with Unity Cloud Build in mind so it works smoothly there, but it is also easy to run locally or in other CI systems.
 
+# To do
+* auto increase build number
+* extract project out to a more generic uploader (this one will contain UCB things: .ipa finder)
+* figure out why no fastlane logs (wait, did it succeed quietly??)
+* install instructions
+* some way of reading changelog from file
+
 # Requirements
 * Python 3
 * git
