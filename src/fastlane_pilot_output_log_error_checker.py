@@ -44,14 +44,9 @@ class ExceptionCollection(Exception):
         return iter(self.exceptions)
 
 
-def success(log: list[OutputLine]) -> bool:
-    # TODO
-    return False
-
-
-def get_errors(lines: list[OutputLine]) -> list[Error]:
+def get_errors(success_from_exit_code: bool, lines: list[OutputLine]) -> list[Error]:
     errors = list(_get_errors_iterator(lines))
-    if len(errors) == 0 and not success(lines):
+    if len(errors) == 0 and not success_from_exit_code:
         lines = [line for line in lines if line.source == OutputSource.STDERR and "error" in line.text.lower()]
         errors.append(Error(Exception("Unknown. Probably something to do with the following."), target_lines=lines))
     return errors

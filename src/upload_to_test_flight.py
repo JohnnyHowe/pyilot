@@ -51,13 +51,8 @@ def _run_attempt(command: list[str], timeout_seconds: int, print_log_stream: boo
 	header = f"Showing {'all' if print_log_stream else 'filtered'} logs "
 	print(f"\n{header:=<100}\n")
 
-	lines: list[OutputLine] = []
-	for output_line in run_command(command, timeout_seconds=timeout_seconds):
-		if print_log_stream or _is_useful_status_log(output_line):
-			print(output_line.text)
-		lines.append(output_line)
-
-	errors = get_errors(lines)
+	success, lines = _run_attempt_command(command, timeout_seconds, print_log_stream)
+	errors = get_errors(success, lines)
 
 	if len(errors) > 0:
 		if not print_log_stream:
@@ -66,9 +61,28 @@ def _run_attempt(command: list[str], timeout_seconds: int, print_log_stream: boo
 				color = "error" if line.source == OutputSource.STDERR else "dull"
 				pretty_print(f"[{line.index}]<{color}>[{line.source}]</{color}> {line.text}")
 
+		if success:
+			print()
+			print("Something peculiar has happened. fastlane indicated success, but there seem to be errors.")
+
 		print_errors(errors)
 		# raise_errors(errors)
 		quit()
+
+
+def _run_attempt_command(command: list[str], timeout_seconds: int, print_log_stream: bool = False) -> tuple[bool, list[OutputLine]]:
+	""" returns (success, lines) """
+	lines: list[OutputLine] = []
+	generator = run_command(command, timeout_seconds=timeout_seconds)
+	try:
+		while True:
+			output_line = next(generator)
+			lines.append(output_line)
+			if print_log_stream or _is_useful_status_log(output_line):
+				print(output_line.text)
+	except StopIteration as exception:
+		print(exception.value)
+		return (exception.value == 0, lines)
 
 
 def _is_useful_status_log(line: OutputLine) -> bool:
