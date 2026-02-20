@@ -37,9 +37,9 @@ See [example.env](example.env)
 
 | Variable | Type | Required (Default) | Description |
 |-|-|-|-|
-| `API_KEY_ISSUER_ID` | `string` | ✅ | Identifies the issuer who created the authentication token.<br>Look for "Issuer ID" on [the App Store Connect API page](https://appstoreconnect.apple.com/access/integrations/api). |
-| `API_KEY_ID` | `string` | ✅ | Look for "Key ID" on your key in [the App Store Connect API page](https://appstoreconnect.apple.com/access/integrations/api). |
-| `API_KEY_CONTENT` | `string` | ✅ | The raw text contents of your API key (`.p8` contents). |
+| `APP_STORE_CONNECT_API_KEY_ISSUER_ID` | `string` | ✅ | Identifies the issuer who created the authentication token.<br>Look for "Issuer ID" on [the App Store Connect API page](https://appstoreconnect.apple.com/access/integrations/api). |
+| `APP_STORE_CONNECT_API_KEY_ID` | `string` | ✅ | Look for "Key ID" on your key in [the App Store Connect API page](https://appstoreconnect.apple.com/access/integrations/api). |
+| `APP_STORE_CONNECT_API_KEY_CONTENT` | `string` | ✅ | The raw text contents of your API key (`.p8` contents). |
 | `CHANGELOG_PATH` | `Path` | ✅ | Path to the file containing release notes for the build. |
 | `GROUPS` | `comma-separated string` | ❌ | Tester groups to distribute to (`groupA,groupB`). If empty, build still goes to internal testers. |
 | `MAX_UPLOAD_ATTEMPTS` | `int` | ❌ (10) | Maximum retry attempts for upload. |

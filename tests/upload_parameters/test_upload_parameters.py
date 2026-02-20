@@ -23,9 +23,9 @@ class UploadParametersTests(unittest.TestCase):
             root = Path(tmp)
             os.environ.update(
                 {
-                    "API_KEY_ISSUER_ID": "issuer",
-                    "API_KEY_ID": "key",
-                    "API_KEY_CONTENT": "private-key-content",
+                    "APP_STORE_CONNECT_API_KEY_ISSUER_ID": "issuer",
+                    "APP_STORE_CONNECT_API_KEY_ID": "key",
+                    "APP_STORE_CONNECT_API_KEY_CONTENT": "private-key-content",
                     "OUTPUT_DIRECTORY": str(root),
                     "CHANGELOG_PATH": str(root / "CHANGELOG.txt"),
                 }
@@ -34,14 +34,14 @@ class UploadParametersTests(unittest.TestCase):
             parameters = UploadParameters()
             parameters.load()
 
-            self.assertEqual(parameters.api_key_issuer_id, "issuer")
-            self.assertEqual(parameters.api_key_id, "key")
-            self.assertEqual(parameters.api_key_content, "private-key-content")
+            self.assertEqual(parameters.app_store_connect_api_key_issuer_id, "issuer")
+            self.assertEqual(parameters.app_store_connect_api_key_id, "key")
+            self.assertEqual(parameters.app_store_connect_api_key_content, "private-key-content")
             self.assertEqual(parameters.output_directory, root)
             self.assertEqual(parameters.changelog_path, root / "CHANGELOG.txt")
             self.assertEqual(parameters.max_upload_attempts, 10)
             self.assertEqual(parameters.attempt_timeout, 600)
-            self.assertEqual(parameters.meta_data["api_key_id"]["source"], ParameterSource.ENV)
+            self.assertEqual(parameters.meta_data["app_store_connect_api_key_id"]["source"], ParameterSource.ENV)
             self.assertEqual(parameters.meta_data["max_upload_attempts"]["source"], ParameterSource.DEFAULTS)
 
     def test_cli_overrides_environment_and_casts_int_values(self) -> None:
@@ -49,9 +49,9 @@ class UploadParametersTests(unittest.TestCase):
             root = Path(tmp)
             os.environ.update(
                 {
-                    "API_KEY_ISSUER_ID": "env-issuer",
-                    "API_KEY_ID": "env-key",
-                    "API_KEY_CONTENT": "env-content",
+                    "APP_STORE_CONNECT_API_KEY_ISSUER_ID": "env-issuer",
+                    "APP_STORE_CONNECT_API_KEY_ID": "env-key",
+                    "APP_STORE_CONNECT_API_KEY_CONTENT": "env-content",
                     "OUTPUT_DIRECTORY": str(root),
                     "CHANGELOG_PATH": str(root / "notes.txt"),
                     "MAX_UPLOAD_ATTEMPTS": "3",
@@ -67,17 +67,17 @@ class UploadParametersTests(unittest.TestCase):
                     "9",
                     "--attempt-timeout",
                     "120",
-                    "--api-key-id",
+                    "--app-store-connect-api-key-id",
                     "cli-key",
                 ],
             ):
                 parameters = UploadParameters()
                 parameters.load()
 
-            self.assertEqual(parameters.api_key_id, "cli-key")
+            self.assertEqual(parameters.app_store_connect_api_key_id, "cli-key")
             self.assertEqual(parameters.max_upload_attempts, 9)
             self.assertEqual(parameters.attempt_timeout, 120)
-            self.assertEqual(parameters.meta_data["api_key_id"]["source"], ParameterSource.CLI)
+            self.assertEqual(parameters.meta_data["app_store_connect_api_key_id"]["source"], ParameterSource.CLI)
             self.assertEqual(parameters.meta_data["max_upload_attempts"]["source"], ParameterSource.CLI)
             self.assertEqual(parameters.meta_data["attempt_timeout"]["source"], ParameterSource.CLI)
 
@@ -87,9 +87,9 @@ class UploadParametersTests(unittest.TestCase):
         with self.assertRaises(KeyError) as ctx:
             parameters.load()
 
-        self.assertIn("api_key_issuer_id", str(ctx.exception))
-        self.assertIn("api_key_id", str(ctx.exception))
-        self.assertIn("api_key_content", str(ctx.exception))
+        self.assertIn("app_store_connect_api_key_issuer_id", str(ctx.exception))
+        self.assertIn("app_store_connect_api_key_id", str(ctx.exception))
+        self.assertIn("app_store_connect_api_key_content", str(ctx.exception))
         self.assertIn("output_directory", str(ctx.exception))
         self.assertIn("changelog_path", str(ctx.exception))
 
@@ -98,9 +98,9 @@ class UploadParametersTests(unittest.TestCase):
             root = Path(tmp)
             os.environ.update(
                 {
-                    "API_KEY_ISSUER_ID": "issuer",
-                    "API_KEY_ID": "key",
-                    "API_KEY_CONTENT": "content",
+                    "APP_STORE_CONNECT_API_KEY_ISSUER_ID": "issuer",
+                    "APP_STORE_CONNECT_API_KEY_ID": "key",
+                    "APP_STORE_CONNECT_API_KEY_CONTENT": "content",
                     "OUTPUT_DIRECTORY": str(root),
                     "CHANGELOG_PATH": str(root / "notes.txt"),
                     "GROUPS": "alpha,beta",

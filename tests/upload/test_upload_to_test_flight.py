@@ -42,9 +42,9 @@ class UploadToTestFlightTests(unittest.TestCase):
                 finder_cls.return_value.file_path = ipa_path
 
                 module.upload_to_testflight(
-                    api_key_issuer_id="issuer-id",
-                    api_key_id="key-id",
-                    api_key_content="key-content",
+                    app_store_connect_api_key_issuer_id="issuer-id",
+                    app_store_connect_api_key_id="key-id",
+                    app_store_connect_api_key_content="key-content",
                     output_directory=root,
                     changelog_path=changelog_path,
                     groups=["group-a", "group-b"],

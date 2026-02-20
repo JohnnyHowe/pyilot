@@ -26,9 +26,9 @@ class ParameterSource(Enum):
 
 
 class UploadParameters:
-    api_key_issuer_id: str
-    api_key_id: str
-    api_key_content: str
+    app_store_connect_api_key_issuer_id: str
+    app_store_connect_api_key_id: str
+    app_store_connect_api_key_content: str
     output_directory: Path
     groups: list[str] = []
     changelog_path: Path
@@ -38,9 +38,9 @@ class UploadParameters:
     meta_data: dict
 
     _parameter_names: tuple = (
-        "api_key_issuer_id",
-        "api_key_id",
-        "api_key_content",
+        "app_store_connect_api_key_issuer_id",
+        "app_store_connect_api_key_id",
+        "app_store_connect_api_key_content",
         "output_directory",
         "changelog_path",
         "groups",

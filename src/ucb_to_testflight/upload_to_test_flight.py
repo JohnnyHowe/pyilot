@@ -6,9 +6,9 @@ from .build_file_finder import BuildFileFinder
 
 
 def upload_to_testflight(
-	api_key_issuer_id: str,
-	api_key_id: str,
-	api_key_content: str,
+	app_store_connect_api_key_issuer_id: str,
+	app_store_connect_api_key_id: str,
+	app_store_connect_api_key_content: str,
 	output_directory: Path,
 	changelog_path: Path,
 	groups: list[str] = [],
@@ -21,9 +21,9 @@ def upload_to_testflight(
 		changelog = file.read()
 
 	pyliot_upload_to_testflight(
-		api_key_issuer_id=api_key_issuer_id,
-		api_key_id=api_key_id,
-		api_key_content=api_key_content,
+		app_store_connect_api_key_issuer_id=app_store_connect_api_key_issuer_id,
+		app_store_connect_api_key_id=app_store_connect_api_key_id,
+		app_store_connect_api_key_content=app_store_connect_api_key_content,
 		ipa_path=ipa_path,
 		changelog=changelog,
 		groups=groups,
